@@ -2,48 +2,49 @@ require 'pry'
 require './lib/node.rb'
 
 class BinarySearchTree
-  attr_reader :root, :depth, :current_node
+  attr_reader :root
 
   def initialize
     @root = nil
-    @current_node = nil
-    @depth = 0
   end
 
   def insert(score, title)
+    depth = 0
     if @root == nil
-      @root = Node.new(score, title)
-      @current_node = root
-      depth
+      @root = Node.new(score, title, depth)
+      root.depth
     else
-      positional_node(score, title, current_node)
+      current_node = root
+      positional_node(score, title, current_node, depth)
     end
   end
 
-  def positional_node(score, title, current_node)
-    if score < current_node.movie_details.keys[0]
-      insert_or_move_left(score, title, current_node)
+  def positional_node(score, title, current_node, depth)
+    if score < current_node.score
+      insert_or_move_left(score, title, current_node, depth)
     else
-      insert_or_move_right(score, title, current_node)
+      insert_or_move_right(score, title, current_node, depth)
     end
   end
 
-  def insert_or_move_left(score, title, current_node)
+  def insert_or_move_left(score, title, current_node, depth)
+    depth += 1
     if current_node.left_node == nil
-      current_node.left_node = Node.new(score, title)
+      current_node.left_node = Node.new(score, title, depth)
+      current_node.left_node.depth
     else
-      positional_node(score, title, current_node.left_node)
+      positional_node(score, title, current_node.left_node, depth)
     end
   end
 
-  def insert_or_move_right(score, title, current_node)
+  def insert_or_move_right(score, title, current_node, depth)
+    depth += 1
     if current_node.right_node == nil
-      current_node.right_node = Node.new(score, title)
+      current_node.right_node = Node.new(score, title, depth)
+      current_node.right_node.depth
     else
-      positional_node(score, title, current_node.right_node)
+      positional_node(score, title, current_node.right_node, depth)
     end
   end
 
 end
-
-binding.pry

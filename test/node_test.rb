@@ -10,8 +10,10 @@ class NodeTest < Minitest::Test
     node_2 = Node.new(16, "Johnny English")
     assert_instance_of Node, node_1
     assert_instance_of Node, node_2
-    assert_equal node_1.movie_details.values.first, "Jumanji"
-    assert_equal node_2.movie_details.keys.first, 16
+    assert_equal "Jumanji", node_1.title
+    assert_equal "Johnny English", node_2.title
+    assert_equal 61, node_1.score
+    assert_equal 16, node_2.score
   end
 
   def test_node_accepts_left_and_right_nodes
