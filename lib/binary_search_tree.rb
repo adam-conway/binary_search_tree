@@ -52,15 +52,19 @@ class BinarySearchTree
       false
     else
       current_node = @root
-      traverse_tree(score, current_node)
+      if traverse_tree(score, current_node).nil?
+        false
+      else
+        true
+      end
     end
   end
 
   def traverse_tree(score, current_node)
     if score == current_node.score
-      true
+      current_node
     elsif current_node.left_node.nil? && current_node.right_node.nil?
-      false
+      nil
     elsif score < current_node.score
       traverse_tree(score, current_node.left_node)
     else
@@ -70,4 +74,4 @@ class BinarySearchTree
 
 end
 
-binding.pry
+# binding.pry

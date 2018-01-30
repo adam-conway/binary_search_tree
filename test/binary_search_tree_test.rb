@@ -24,13 +24,13 @@ class BinarySearchTreeTest < Minitest::Test
   def setup_alternate
     @tree = BinarySearchTree.new
     @list_of_movies = {
-      50 => "Hannibal Buress: Animal Furnace",
-      61 => "Bill & Ted's",
-      16 => "Johnny English",
-      92 => "Sharknado 3",
-      42 => "Star Wars",
-      78 => "Star Trek",
-      5 => "Die Hard"
+      49 => "Hannibal Buress: Animal Furnace",
+      60 => "Bill & Ted's",
+      17 => "Johnny English",
+      93 => "Sharknado 3",
+      43 => "Star Wars",
+      79 => "Star Trek",
+      6 => "Die Hard"
     }
     @list_of_movies.each do |key, value|
       @tree.insert(key, value)
@@ -51,7 +51,7 @@ class BinarySearchTreeTest < Minitest::Test
     setup_alternate
     assert_instance_of Node, @tree.root
     assert_equal 0, @tree.root.depth
-    assert_equal 50, @tree.root.score
+    assert_equal 49, @tree.root.score
     assert_equal "Hannibal Buress: Animal Furnace", @tree.root.title
   end
 
@@ -61,9 +61,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 92, @tree.root.right_node.score
     assert_equal "Sharknado 3", @tree.root.right_node.title
     setup_alternate
-    assert_equal 16, @tree.root.left_node.score
+    assert_equal 17, @tree.root.left_node.score
     assert_equal "Johnny English", @tree.root.left_node.title
-    assert_equal 61, @tree.root.right_node.score
+    assert_equal 60, @tree.root.right_node.score
     assert_equal "Bill & Ted's", @tree.root.right_node.title
   end
 
@@ -76,21 +76,22 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 3, tree.insert(99, "Cars 2")
   end
 
-  def test_moving_or_inserting_right
-  end
-
-  def test_moving_or_inserting_left
-  end
-
   def test_include_method
     assert @tree.include?(50)
     assert @tree.include?(78)
     refute @tree.include?(1)
     refute @tree.include?(33)
     setup_alternate
-    assert @tree.include?(16)
-    assert @tree.include?(50)
+    assert @tree.include?(17)
+    assert @tree.include?(49)
     refute @tree.include?(4)
     refute @tree.include?(62)
   end
+
+  def test_moving_or_inserting_right
+  end
+
+  def test_moving_or_inserting_left
+  end
+
 end
