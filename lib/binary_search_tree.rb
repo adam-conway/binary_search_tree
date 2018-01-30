@@ -22,17 +22,25 @@ class BinarySearchTree
 
   def positional_node(score, title, current_node)
     if score < current_node.movie_details.keys[0]
-      if current_node.left_node == nil
-        current_node.left_node = Node.new(score, title)
-      else
-        positional_node(score, title, current_node.left_node)
-      end
+      insert_or_move_left(score, title, current_node)
     else
-      if current_node.right_node == nil
-        current_node.right_node = Node.new(score, title)
-      else
-        positional_node(score, title, current_node.right_node)
-      end
+      insert_or_move_right(score, title, current_node)
+    end
+  end
+
+  def insert_or_move_left(score, title, current_node)
+    if current_node.left_node == nil
+      current_node.left_node = Node.new(score, title)
+    else
+      positional_node(score, title, current_node.left_node)
+    end
+  end
+
+  def insert_or_move_right(score, title, current_node)
+    if current_node.right_node == nil
+      current_node.right_node = Node.new(score, title)
+    else
+      positional_node(score, title, current_node.right_node)
     end
   end
 
