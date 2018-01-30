@@ -47,4 +47,27 @@ class BinarySearchTree
     end
   end
 
+  def include?(score)
+    if @root == nil
+      false
+    else
+      current_node = @root
+      traverse_tree(score, current_node)
+    end
+  end
+
+  def traverse_tree(score, current_node)
+    if score == current_node.score
+      true
+    elsif current_node.left_node.nil? && current_node.right_node.nil?
+      false
+    elsif score < current_node.score
+      traverse_tree(score, current_node.left_node)
+    else
+      traverse_tree(score, current_node.right_node)
+    end
+  end
+
 end
+
+binding.pry
