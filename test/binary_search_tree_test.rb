@@ -76,7 +76,7 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 3, tree.insert(99, "Cars 2")
   end
 
-  def test_include_method
+  def test_include
     assert @tree.include?(50)
     assert @tree.include?(78)
     refute @tree.include?(1)
@@ -88,10 +88,28 @@ class BinarySearchTreeTest < Minitest::Test
     refute @tree.include?(62)
   end
 
-  def test_moving_or_inserting_right
+  def test_depth_of
+    assert_equal 0, @tree.depth_of(61)
+    assert_equal 1, @tree.depth_of(16)
+    assert_equal 2, @tree.depth_of(5)
+    assert_nil @tree.depth_of(4)
+    setup_alternate
+    assert_equal 0, @tree.depth_of(49)
+    assert_equal 1, @tree.depth_of(60)
+    assert_equal 2, @tree.depth_of(93)
+    assert_nil @tree.depth_of(4)
   end
 
-  def test_moving_or_inserting_left
+  def test_max
+    assert_equal ({"Sharknado 3"=>92}), @tree.max
+    setup_alternate
+    assert_equal ({"Sharknado 3"=>93}), @tree.max
+  end
+
+  def test_min
+    assert_equal ({"Die Hard"=>5}), @tree.min
+    setup_alternate
+    assert_equal ({"Die Hard"=>6}), @tree.min
   end
 
 end

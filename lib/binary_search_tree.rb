@@ -72,6 +72,31 @@ class BinarySearchTree
     end
   end
 
-end
+  def depth_of(score)
+    if include?(score)
+      current_node = @root
+      current_node = traverse_tree(score, current_node)
+      current_node.depth
+    else
+      nil
+    end
+  end
 
-# binding.pry
+  def max(current_node = @root)
+    if current_node.right_node.nil?
+      {current_node.title => current_node.score}
+    else
+      # current_node = current_node.right_node
+      max(current_node.right_node)
+    end
+  end
+
+  def min(current_node = @root)
+    if current_node.left_node.nil?
+      {current_node.title => current_node.score}
+    else
+      min(current_node.left_node)
+    end
+  end
+
+end
