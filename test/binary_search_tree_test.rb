@@ -1,7 +1,7 @@
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/binary_search_tree.rb'
+require './lib/binary_search_tree'
 
 class BinarySearchTreeTest < Minitest::Test
 
@@ -39,6 +39,7 @@ class BinarySearchTreeTest < Minitest::Test
 
   def test_new_binary_search_tree_creation
     tree = BinarySearchTree.new
+
     assert_instance_of BinarySearchTree, @tree
     assert_nil tree.root
   end
@@ -48,7 +49,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 0, @tree.root.depth
     assert_equal 61, @tree.root.score
     assert_equal "Bill & Ted's", @tree.root.title
+
     setup_alternate
+
     assert_instance_of Node, @tree.root
     assert_equal 0, @tree.root.depth
     assert_equal 49, @tree.root.score
@@ -60,7 +63,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal "Johnny English", @tree.root.left_node.title
     assert_equal 92, @tree.root.right_node.score
     assert_equal "Sharknado 3", @tree.root.right_node.title
+
     setup_alternate
+
     assert_equal 17, @tree.root.left_node.score
     assert_equal "Johnny English", @tree.root.left_node.title
     assert_equal 60, @tree.root.right_node.score
@@ -69,6 +74,7 @@ class BinarySearchTreeTest < Minitest::Test
 
   def test_returning_depth_of_node
     tree = BinarySearchTree.new
+
     assert_equal 0, tree.insert(50, "Up")
     assert_equal 1, tree.insert(61, "The Incredibles")
     assert_equal 1, tree.insert(32, "Fantasia")
@@ -81,7 +87,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert @tree.include?(78)
     refute @tree.include?(1)
     refute @tree.include?(33)
+
     setup_alternate
+
     assert @tree.include?(17)
     assert @tree.include?(49)
     refute @tree.include?(4)
@@ -93,7 +101,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 1, @tree.depth_of(16)
     assert_equal 2, @tree.depth_of(5)
     assert_nil @tree.depth_of(4)
+
     setup_alternate
+
     assert_equal 0, @tree.depth_of(49)
     assert_equal 1, @tree.depth_of(60)
     assert_equal 2, @tree.depth_of(93)
@@ -102,13 +112,17 @@ class BinarySearchTreeTest < Minitest::Test
 
   def test_max
     assert_equal ({"Sharknado 3"=>92}), @tree.max
+
     setup_alternate
+
     assert_equal ({"Sharknado 3"=>93}), @tree.max
   end
 
   def test_min
     assert_equal ({"Die Hard"=>5}), @tree.min
+
     setup_alternate
+
     assert_equal ({"Die Hard"=>6}), @tree.min
   end
 
@@ -116,7 +130,9 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal ({"Die Hard"=>5}), @tree.sort[0]
     assert_equal ({"Sharknado 3"=>92}), @tree.sort[-1]
     assert_equal 7, @tree.sort.length
+
     setup_alternate
+
     assert_equal ({"Star Wars"=>43}), @tree.sort[2]
     assert_equal ({"Hannibal Buress: Animal Furnace"=>49}), @tree.sort[3]
     assert_equal 7, @tree.sort.length
@@ -125,11 +141,25 @@ class BinarySearchTreeTest < Minitest::Test
   def test_loading_via_txt_file
     tree = BinarySearchTree.new
     tree.load("./lib/movies.txt")
+
     assert_equal 71, tree.root.score
     assert_equal "Hannibal Buress: Animal Furnace", tree.root.title
     assert_equal 80, tree.root.right_node.score
     assert_equal ({"Cruel Intentions" => 0}), tree.min
     assert_equal ({"The Little Engine That Could" => 100}), tree.max
+  end
+
+  def test_health_method
+    assert_equal [[61, 7, 100]], @tree.health(0)
+    assert_equal [[16, 4, 57], [92, 2, 28]], @tree.health(1)
+    assert_equal [[5, 1, 14], [50, 2, 28], [78, 1, 14]], @tree.health(2)
+    assert_equal [[42, 1, 14]], @tree.health(3)
+
+    setup_alternate
+
+    assert_equal [[49, 7, 100]], @tree.health(0)
+    assert_equal [[17, 3, 42], [60, 3, 42]], @tree.health(1)
+    assert_equal [[6, 1, 14], [43, 1, 14], [93, 2, 28]], @tree.health(2)
   end
 
 end

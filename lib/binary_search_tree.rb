@@ -1,5 +1,5 @@
 require 'pry'
-require './lib/node.rb'
+require './lib/node'
 
 class BinarySearchTree
   attr_reader :root
@@ -118,6 +118,49 @@ class BinarySearchTree
     end
     insertions
   end
+
+  def health(depth, current_node = @root, array = [])
+    if current_node.depth == depth
+      array << build_health_array(current_node)
+    end
+    if !current_node.left_node.nil?
+      health(depth, current_node.left_node, array)
+    end
+    if !current_node.right_node.nil?
+      health(depth, current_node.right_node, array)
+    end
+    array
+  end
+
+  def number_nodes(current_node)
+    sort(current_node).length
+  end
+
+  def percent_nodes(current_node)
+    current_nodes = sort(current_node).length
+    total_nodes = sort(@root).length
+    percent = current_nodes.to_f / total_nodes.to_f
+    (percent * 100).to_i
+  end
+
+  def build_health_array(current_node)
+    [current_node.score,
+     number_nodes(current_node),
+     percent_nodes(current_node)]
+  end
+
 end
 
-binding.pry
+@tree = BinarySearchTree.new
+@list_of_movies = {
+  61 => "Bill & Ted's",
+  16 => "Johnny English",
+  92 => "Sharknado 3",
+  50 => "Hannibal Buress: Animal Furnace",
+  42 => "Star Wars",
+  78 => "Star Trek",
+  5 => "Die Hard"
+}
+@list_of_movies.each do |key, value|
+  @tree.insert(key, value)
+end
