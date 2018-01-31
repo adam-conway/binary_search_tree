@@ -112,4 +112,24 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal ({"Die Hard"=>6}), @tree.min
   end
 
+  def test_sort
+    assert_equal ({"Die Hard"=>5}), @tree.sort[0]
+    assert_equal ({"Sharknado 3"=>92}), @tree.sort[-1]
+    assert_equal 7, @tree.sort.length
+    setup_alternate
+    assert_equal ({"Star Wars"=>43}), @tree.sort[2]
+    assert_equal ({"Hannibal Buress: Animal Furnace"=>49}), @tree.sort[3]
+    assert_equal 7, @tree.sort.length
+  end
+
+  def test_loading_via_txt_file
+    tree = BinarySearchTree.new
+    tree.load("./lib/movies.txt")
+    assert_equal 71, tree.root.score
+    assert_equal "Hannibal Buress: Animal Furnace", tree.root.title
+    assert_equal 80, tree.root.right_node.score
+    assert_equal ({"Cruel Intentions" => 0}), tree.min
+    assert_equal ({"The Little Engine That Could" => 100}), tree.max
+  end
+
 end

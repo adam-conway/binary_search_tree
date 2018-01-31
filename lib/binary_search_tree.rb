@@ -86,7 +86,6 @@ class BinarySearchTree
     if current_node.right_node.nil?
       {current_node.title => current_node.score}
     else
-      # current_node = current_node.right_node
       max(current_node.right_node)
     end
   end
@@ -99,4 +98,26 @@ class BinarySearchTree
     end
   end
 
+  def sort(current_node = @root, array = [])
+    if !current_node.left_node.nil?
+      sort(current_node.left_node, array)
+    end
+    array << {current_node.title => current_node.score}
+    if !current_node.right_node.nil?
+      sort(current_node.right_node, array)
+    end
+    array
+  end
+
+  def load(filename)
+    insertions = 0
+    File.open(filename).each do |line|
+      line = line.strip
+      insert(line.split(", ")[0].to_i, line.split(", ")[1])
+      insertions += 1
+    end
+    insertions
+  end
 end
+
+binding.pry
