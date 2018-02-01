@@ -168,4 +168,7 @@ class BinarySearchTree
     end
   end
 
+  def delete(score)
+  end
+
 end
