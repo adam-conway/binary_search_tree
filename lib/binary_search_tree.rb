@@ -111,7 +111,6 @@ class BinarySearchTree
 
   def load(filename)
     insertions = 0
-    #refactor using File.read
     File.open(filename).each do |line|
       line = line.strip
       insert(line.split(", ")[0].to_i, line.split(", ")[1])

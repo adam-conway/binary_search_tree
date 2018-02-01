@@ -14,5 +14,3 @@ class Node
   end
 
 end
-
-# binding.pry
