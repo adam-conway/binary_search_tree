@@ -150,11 +150,15 @@ class BinarySearchTree
      percent_nodes(current_node)]
   end
 
-  def leaves(current_node = @root, leaves_empty = 0)
-    leaves_empty += leaves(current_node.left_node) if !current_node.left_node.nil?
-    leaves_empty += leaves(current_node.right_node) if !current_node.right_node.nil?
-    leaves_empty += 1 if current_node.left_node.nil? && current_node.right_node.nil?
-    leaves_empty
+  def leaves(current_node = @root, barren = 0)
+    barren += leaves(current_node.left_node) if !current_node.left_node.nil?
+    barren += leaves(current_node.right_node) if !current_node.right_node.nil?
+    barren += 1 if no_children_nodes(current_node)
+    barren
+  end
+
+  def no_children_nodes(current_node)
+    true if current_node.left_node.nil? && current_node.right_node.nil?
   end
 
   def height(depth = 0)
@@ -166,8 +170,3 @@ class BinarySearchTree
   end
 
 end
-
-tree = BinarySearchTree.new
-tree.insert(61, "Bill & Ted's")
-tree.insert(16, "Johnny English")
-tree.insert(92, "Sharknado 3")
