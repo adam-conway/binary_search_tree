@@ -168,4 +168,58 @@ class BinarySearchTree
     end
   end
 
+  def delete(score, current_node = @root)
+    if !include?(score)
+      nil
+    elsif score == current_node.score
+      @root = nil
+      score
+    else
+      parent_node_to_delete = find_parent_of_node_to_delete(score, current_node)
+      remove_node_from_parent_and_enter(parent_node_to_delete, score)
+    end
+  end
+
+  def find_parent_of_node_to_delete(score, current_node)
+    check_child_node_scores(score, current_node)
+    if !current_node.right_node.nil?
+      find_parent_of_node_to_delete(score, current_node.right_node)
+    end
+    if !current_node.left_node.nil?
+      find_parent_of_node_to_delete(score, current_node.left_node)
+    end
+  end
+
+  def check_child_node_scores(score, current_node)
+    if score == current_node.left_node.score
+      return current_node
+    elsif score == current_node.right_node.score
+      return current_node
+    else
+      false
+    end
+  end
+
+  def remove_node_from_parent_and_enter(parent_of_node_to_delete, score)
+    if parent_of_node_to_delete.left_node.score == score
+      node_to_delete = parent_of_node_to_delete.left_node
+      parent_of_node_to_delete.left_node = nil
+      reinsert_deleted_child_nodes(node_to_delete)
+    else
+      node_to_delete = parent_of_node_to_delete.right_node
+      parent_of_node_to_delete.right_node = nil
+      reinsert_deleted_child_nodes(node_to_delete)
+    end
+  end
+
+  def reinsert_deleted_child_nodes(current_node)
+    if !current_node.left_node.nil?
+      reinsert_deleted_child_nodes(current_node.left_node)
+    end
+    insert(current_node.score, current_node.title)
+    if !current_node.right_node.nil?
+      reinsert_deleted_child_nodes(current_node.right_node)
+    end
+  end
+
 end

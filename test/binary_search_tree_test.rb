@@ -186,4 +186,19 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 4, @tree.height
   end
 
+  def test_delete_function
+    skip
+    @tree.delete(16)
+
+    refute @tree.include?(16)
+    assert @tree.include?(5)
+    assert @tree.include?(42)
+
+    setup_alternate
+    @tree.delete(60)
+
+    refute @tree.include?(60)
+    assert @tree.include?(93)
+    assert @tree.include?(79)
+  end
 end
