@@ -111,6 +111,7 @@ class BinarySearchTree
 
   def load(filename)
     insertions = 0
+    #refactor using File.read
     File.open(filename).each do |line|
       line = line.strip
       insert(line.split(", ")[0].to_i, line.split(", ")[1])
@@ -149,18 +150,24 @@ class BinarySearchTree
      percent_nodes(current_node)]
   end
 
+  def leaves(current_node = @root, leaves_empty = 0)
+    leaves_empty += leaves(current_node.left_node) if !current_node.left_node.nil?
+    leaves_empty += leaves(current_node.right_node) if !current_node.right_node.nil?
+    leaves_empty += 1 if current_node.left_node.nil? && current_node.right_node.nil?
+    leaves_empty
+  end
+
+  def height(depth = 0)
+    if health(depth) == []
+      depth - 1
+    else
+      height(depth + 1)
+    end
+  end
+
 end
 
-@tree = BinarySearchTree.new
-@list_of_movies = {
-  61 => "Bill & Ted's",
-  16 => "Johnny English",
-  92 => "Sharknado 3",
-  50 => "Hannibal Buress: Animal Furnace",
-  42 => "Star Wars",
-  78 => "Star Trek",
-  5 => "Die Hard"
-}
-@list_of_movies.each do |key, value|
-  @tree.insert(key, value)
-end
+tree = BinarySearchTree.new
+tree.insert(61, "Bill & Ted's")
+tree.insert(16, "Johnny English")
+tree.insert(92, "Sharknado 3")

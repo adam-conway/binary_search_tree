@@ -162,4 +162,28 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal [[6, 1, 14], [43, 1, 14], [93, 2, 28]], @tree.health(2)
   end
 
+  def test_leaves
+    assert_equal 3, @tree.leaves
+    @tree.insert(95, "Home Alone")
+    assert_equal 4, @tree.leaves
+
+    setup_alternate
+
+    assert_equal 3, @tree.leaves
+    @tree.insert(55, "Home Alone")
+    assert_equal 4, @tree.leaves
+  end
+
+  def test_height
+    assert_equal 3, @tree.height
+    @tree.insert(45, "Home Alone")
+    assert_equal 4, @tree.height
+
+    setup_alternate
+
+    assert_equal 3, @tree.height
+    @tree.insert(85, "Home Alone")
+    assert_equal 4, @tree.height
+  end
+
 end
