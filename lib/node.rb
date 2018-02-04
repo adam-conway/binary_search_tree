@@ -1,7 +1,6 @@
 require 'pry'
 
 class Node
-
   attr_reader :score, :title
   attr_accessor :left_node, :right_node, :depth
 
@@ -12,5 +11,4 @@ class Node
     @right_node = nil
     @depth = depth
   end
-
 end

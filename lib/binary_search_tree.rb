@@ -10,7 +10,7 @@ class BinarySearchTree
 
   def insert(score, title)
     depth = 0
-    if @root == nil
+    if @root.nil?
       @root = Node.new(score, title, depth)
       root.depth
     else
@@ -29,7 +29,7 @@ class BinarySearchTree
 
   def insert_or_move_left(score, title, current_node, depth)
     depth += 1
-    if current_node.left_node == nil
+    if current_node.left_node.nil?
       current_node.left_node = Node.new(score, title, depth)
       current_node.left_node.depth
     else
@@ -39,7 +39,7 @@ class BinarySearchTree
 
   def insert_or_move_right(score, title, current_node, depth)
     depth += 1
-    if current_node.right_node == nil
+    if current_node.right_node.nil?
       current_node.right_node = Node.new(score, title, depth)
       current_node.right_node.depth
     else
@@ -48,7 +48,7 @@ class BinarySearchTree
   end
 
   def include?(score)
-    if @root == nil
+    if @root.nil?
       false
     else
       current_node = @root
@@ -84,7 +84,7 @@ class BinarySearchTree
 
   def max(current_node = @root)
     if current_node.right_node.nil?
-      {current_node.title => current_node.score}
+      { current_node.title => current_node.score }
     else
       max(current_node.right_node)
     end
@@ -92,7 +92,7 @@ class BinarySearchTree
 
   def min(current_node = @root)
     if current_node.left_node.nil?
-      {current_node.title => current_node.score}
+      { current_node.title => current_node.score }
     else
       min(current_node.left_node)
     end
@@ -102,7 +102,7 @@ class BinarySearchTree
     if !current_node.left_node.nil?
       sort(current_node.left_node, array)
     end
-    array << {current_node.title => current_node.score}
+    array << { current_node.title => current_node.score }
     if !current_node.right_node.nil?
       sort(current_node.right_node, array)
     end
@@ -113,7 +113,7 @@ class BinarySearchTree
     insertions = 0
     File.open(filename).each do |line|
       line = line.strip
-      insert(line.split(", ")[0].to_i, line.split(", ")[1])
+      insert(line.split(', ')[0].to_i, line.split(', ')[1])
       insertions += 1
     end
     insertions
@@ -192,9 +192,9 @@ class BinarySearchTree
 
   def check_child_node_scores(score, current_node)
     if score == current_node.left_node.score
-      return current_node
+      current_node
     elsif score == current_node.right_node.score
-      return current_node
+      current_node
     else
       false
     end
@@ -204,12 +204,11 @@ class BinarySearchTree
     if parent_of_node_to_delete.left_node.score == score
       node_to_delete = parent_of_node_to_delete.left_node
       parent_of_node_to_delete.left_node = nil
-      reinsert_deleted_child_nodes(node_to_delete)
     else
       node_to_delete = parent_of_node_to_delete.right_node
       parent_of_node_to_delete.right_node = nil
-      reinsert_deleted_child_nodes(node_to_delete)
     end
+    reinsert_deleted_child_nodes(node_to_delete)
   end
 
   def reinsert_deleted_child_nodes(current_node)
@@ -221,5 +220,4 @@ class BinarySearchTree
       reinsert_deleted_child_nodes(current_node.right_node)
     end
   end
-
 end
